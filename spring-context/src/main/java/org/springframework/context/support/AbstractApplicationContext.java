@@ -542,8 +542,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				//TODO 非常重要
-				//处理BeanFactory的后置处理器，BeanFactory的扩展：BeanFactoryPostProcessors，
+				//TODO 非常重要  处理BeanFactory的后置处理器，BeanFactory的扩展：BeanFactoryPostProcessors，
 				// 实现这个接口可以扩展第三方插件，如：mybatis的MapperScannerConfigurer；
 				// 可以在这里实例化第三方插件的bean
 				invokeBeanFactoryPostProcessors(beanFactory);
