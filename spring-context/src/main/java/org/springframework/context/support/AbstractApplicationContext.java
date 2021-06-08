@@ -525,6 +525,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			/**
+			 * 重要：
+			 * 获得一个新的bean工厂：
+			 * 1.先检查有没有bean工厂，如果有，销毁所有bean，关闭bean工厂
+			 * 2.创建一个新的bean工厂，检查有没有设置bean定义覆盖，
+			 *
+			 */
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
@@ -535,9 +542,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				//TODO 非常重要
+				//处理BeanFactory的后置处理器，BeanFactory的扩展：BeanFactoryPostProcessors，
+				// 实现这个接口可以扩展第三方插件，如：mybatis的MapperScannerConfigurer；
+				// 可以在这里实例化第三方插件的bean
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//TODO 非常重要 bean的后置处理器，对bean的一些扩展，可以修改其属性等；非常重要
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -635,6 +647,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		//刷新bean工厂，销毁所有bean
 		refreshBeanFactory();
 		ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 		if (logger.isDebugEnabled()) {
