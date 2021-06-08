@@ -2,6 +2,8 @@ package com.xfma.spring.demo.test.config;
 
 import com.xfma.spring.demo.test.Student;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.MutablePropertyValues;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
@@ -9,7 +11,7 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.stereotype.Component;
 
 /**
- * 自定义BeanFactoryPostProcessor
+ * 自定义BeanDefinitionRegistryPostProcessor
  */
 @Component
 public class MyBeanFactoryPostProcessors implements BeanDefinitionRegistryPostProcessor {
@@ -21,8 +23,10 @@ public class MyBeanFactoryPostProcessors implements BeanDefinitionRegistryPostPr
 	 */
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		Student student = (Student) beanFactory.getBean("student");
-		System.out.println(student);
+		BeanDefinition student = beanFactory.getBeanDefinition("student");
+		MutablePropertyValues propertyValues = student.getPropertyValues();
+		propertyValues.add("studentName","小白");
+		propertyValues.add("age",12);
 	}
 
 	/**

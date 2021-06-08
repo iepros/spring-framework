@@ -23,6 +23,6 @@ public class MainTest {
 	@Test
 	public void testAnnotation(){
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-		System.out.println(context.getBean("myBeanFactoryPostProcessors"));
+		System.out.println(context.getBean("student"));
 	}
 }
