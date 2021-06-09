@@ -131,7 +131,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			//检查有没有设置bean定义覆盖，如果设置了，同名的bean在创建的时候会覆盖前者
 			customizeBeanFactory(beanFactory);
-			//***加载bean定义信息，解析bean.xml文件获取bean定义信息；重要
+			//TODO 加载bean定义信息，解析bean.xml文件获取bean定义信息；重要
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		}

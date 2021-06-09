@@ -526,19 +526,29 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// Tell the subclass to refresh the internal bean factory.
 			/**
-			 * 重要：
-			 * 获得一个新的bean工厂：
+			 * TODO 重要：获得一个新的bean工厂：
+			 *
 			 * 1.先检查有没有bean工厂，如果有，销毁所有bean，关闭bean工厂
 			 * 2.创建一个新的bean工厂，检查有没有设置bean定义覆盖，
-			 *
+			 * 3.加载bean定义信息，解析bean.xml文件获取bean定义信息：BeanDefinition
 			 */
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			/**
+			 * TODO 准备BeanFactory：
+			 * 1.设置环境变量、属性等
+			 * 2.注册各种Aware增强接口
+			 */
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				/**
+				 * Spring扩展点
+				 * TODO BeanFactory的后置处理器，此时所有的bean还没有被实例化；
+				 * 可以注册特殊的BeanFactoryPostProcessor来读取bean元数据，并进行一些特殊的设置和修改
+				 */
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
